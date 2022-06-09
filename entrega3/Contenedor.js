@@ -3,7 +3,7 @@ const fs = require("fs");
 class Contenedor {
   constructor(archivo) {
     this.archivo = archivo;
-    fs.promises.writeFile(archivo, "");
+    // fs.promises.writeFile(archivo, "");
   }
   async save(objeto) {
     try {
@@ -33,6 +33,7 @@ class Contenedor {
       );
       if (objetoDos) {
         console.log(objetoDos);
+        return objetoDos;
       } else {
         console.log(null);
       }
@@ -44,7 +45,7 @@ class Contenedor {
     try {
       let datosGuardados = await fs.promises.readFile(this.archivo, "utf-8");
       datosGuardados = JSON.parse(datosGuardados);
-      console.log(datosGuardados);
+      return datosGuardados;
     } catch (error) {
       console.log(error);
     }
@@ -70,36 +71,4 @@ class Contenedor {
   }
 }
 
-let objeto1 = {
-  title: "coca-cola",
-  price: 250,
-  url: "",
-};
-let objeto2 = {
-  title: "fanta",
-  price: 200,
-  url: "",
-};
-let objeto3 = {
-  title: "agua",
-  price: 150,
-  url: "",
-};
-
-const productos = new Contenedor("productos.txt");
-
-async function llamadaProd() {
-  try {
-    await productos.save(objeto1);
-    await productos.save(objeto2);
-    await productos.save(objeto3);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// llamadaProd();
-// productos.getById(3);
-// productos.getAll();
-// productos.deletById(1);
-// productkos.deleteAll();
+module.exports = Contenedor
